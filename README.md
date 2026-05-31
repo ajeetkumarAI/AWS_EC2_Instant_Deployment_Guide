@@ -1,7 +1,7 @@
 # AWS_EC2_Instant_Deployment_Guide
 
 ## Deploy on AWS EC2
-Step-by-step guide to deploy the HR Document Assistant on an AWS EC2 instance and make it publicly accessible.
+Step-by-step guide to deploy the AI/ML/GenAI on an AWS EC2 instance and make it publicly accessible.
 
 Step 1: Launch an EC2 Instance
 Log in to the AWS Management Console.
