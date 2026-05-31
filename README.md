@@ -17,15 +17,18 @@ Step 2: Connect to the EC2 Instance via SSH
 # Open a terminal (Git Bash on Windows, Terminal on macOS/Linux)
  
 # Navigate to where your .pem key file is stored
+```BASH
 cd Downloads/
- 
+ ```
 # Secure the key file — required by SSH, prevents "permissions too open" error
+```BASH
 chmod 400 "aws-instant-api-key-1-hr-document-assistant.pem"
- 
+ ```
 # Connect to the EC2 instance using its public DNS
 # Replace the hostname with your instance's Public IPv4 DNS from the EC2 console
+```bash
 ssh -i "aws-instant-api-key-1-hr-document-assistant.pem" ubuntu@ec2-<your-ip>.compute-1.amazonaws.com
- 
+ ```
 # When prompted "Are you sure you want to continue connecting?", type: yes
 Tip: Find your instance's Public IPv4 DNS in the EC2 console under
 Instances → select your instance → Details → Public IPv4 DNS.
@@ -33,40 +36,57 @@ Instances → select your instance → Details → Public IPv4 DNS.
 Step 3: Update System Packages
 
 # Update the package index and upgrade all installed packages to latest versions
+```bash
 sudo apt update && sudo apt upgrade -y
+```
 Step 4: Install Required System Dependencies
 
 # Install pip (Python package manager)
+```bash
 sudo apt install python3-pip -y
- 
+ ```
+
 # Install Git and Python 3 (usually pre-installed on Ubuntu, but ensuring they're present)
+```bash
 sudo apt install git python3 python3-venv -y
+```
 Step 5: Clone the Repository
 
 # Clone the project repository from GitHub
+```bash
 git clone https://github.com/ajeetkumarAI/HR_Document_Assistant_Copilot.git
- 
+ ```
 # Change into the project directory
+```bash
 cd HR_Document_Assistant_Copilot/
+```
 Step 6: Create and Activate a Virtual Environment
 
 # Create a Python virtual environment named 'venv'
+```bash
 python3 -m venv venv
- 
+ ```
 # Activate the virtual environment
 # All pip installs will now go into venv/ instead of system Python
+```bash
 source venv/bin/activate
+```
 Step 7: Install Python Dependencies
 
 # Verify the dependencies that will be installed
+```
 cat requirements.txt
- 
+ ```
 # Install all required Python packages
+```bash
 pip install -r requirements.txt
+```
 Step 8: Configure the OpenAI API Key
 
 # Create the .env file and add your OpenAI API key
+```bash
 nano .env
+```
 In the nano editor:
 
 Type: OPENAI_API_KEY=sk-your-actual-api-key-here
@@ -80,14 +100,17 @@ Step 9: Start the Streamlit Application
 # Run Streamlit on port 8501, binding to all network interfaces (0.0.0.0)
 # --server.address 0.0.0.0  →  allows external access (not just localhost)
 # --server.port 8501        →  the port the app listens on
+```bash
 streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+```
 Keep it running after SSH disconnect: Use nohup or tmux so the app
 survives when you close the terminal:
 
 
 # Option A: nohup (runs in background, logs to app.log)
+```bash
 nohup streamlit run app.py --server.port 8501 --server.address 0.0.0.0 > app.log 2>&1 &
- 
+ ```
 # Option B: tmux (lets you reattach later to see live output)
 tmux new -s app
 streamlit run app.py --server.port 8501 --server.address 0.0.0.0
